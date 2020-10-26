@@ -1,0 +1,97 @@
+//4 BIT SAR ADC DESIGN
+
+module SAR_ADC(Vin,Vd,Vout);
+input [1:4]Vin,Vd;
+output Vout;
+reg [1:4]Vin,Vd;
+ Vd = 1000;
+ 
+always@(Vin,Vd)
+begin
+  if(Vin < Vd)
+    begin
+     Vd <= 0100;
+     if(Vin < Vd)
+     begin
+      Vd <= 0010;
+      if(Vin < Vd)
+         begin 
+           Vd <= 0001;
+           if(Vin < Vd)
+            Vd <= 0000;
+           else
+            Vd <= 0001;
+         end   
+      else
+         begin 
+             Vd <= 0011;
+             if(Vin < Vd)
+              Vd <= 0010;
+             else
+              Vd <= 0011;
+          end  
+      end
+      else
+        Vd <= 0110;
+            if(Vin < Vd)
+               begin 
+                 Vd <= 0101;
+                 if(Vin < Vd)
+                  Vd <= 0100;
+                 else
+                  Vd <= 0101;
+               end   
+            else
+               begin 
+                   Vd <= 0111;
+                   if(Vin < Vd)
+                    Vd <= 0110;
+                   else
+                    Vd <= 0111;
+                end  
+    end
+  else
+     begin
+        Vd <= 1100;
+        if(Vin < Vd)
+        begin
+         Vd <= 1010;
+         if(Vin < Vd)
+            begin 
+              Vd <= 1001;
+              if(Vin < Vd)
+               Vd <= 1000;
+              else
+               Vd <= 1001;
+            end   
+         else
+            begin 
+                Vd <= 1011;
+                if(Vin < Vd)
+                 Vd <= 1010;
+                else
+                 Vd <= 1011;
+             end  
+         end
+         else
+           Vd <= 1110;
+               if(Vin < Vd)
+                  begin 
+                    Vd <= 1101;
+                    if(Vin < Vd)
+                     Vd <= 1100;
+                    else
+                     Vd <= 1101;
+                  end   
+               else
+                  begin 
+                      Vd <= 1111;
+                      if(Vin < Vd)
+                       Vd <= 1110;
+                      else
+                       Vd <= 1111;
+                   end  
+       end  
+end
+
+endmodule
