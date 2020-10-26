@@ -1,0 +1,124 @@
+//Code for 4 bit SAR ADC 
+
+#include<stdio.h>
+int main(){ 
+int Vd = 1000;
+int Analog_in;
+printf("Enter Analog input(less than 15) :");
+scanf("%d", &Analog_in);
+int Vin = ADC_Function(Analog_in);
+printf("Input in digital : %d\n",Vin);
+	if(Vin < Vd)
+    {
+	
+     Vd = 0100;
+     if(Vin < Vd)
+     {
+	 
+      Vd = 0010;
+      if(Vin < Vd)
+         {
+		  
+           Vd = 0001;
+           if(Vin < Vd)
+            Vd = 0000;
+           else
+            Vd = 0001;
+         }
+      else
+           {
+		   
+             Vd = 0011;
+             if(Vin < Vd)
+              Vd = 0010;
+             else
+              Vd = 0011;
+            }
+       }
+      else
+        Vd = 0110;
+            if(Vin < Vd)
+               {
+				
+                 Vd = 0101;
+                 if(Vin < Vd)
+                  Vd = 0100;
+                 else
+                  Vd = 0101;
+           }
+            else
+               {
+				 
+                   Vd = 0111;
+                   if(Vin < Vd)
+                    Vd = 0110;
+                   else
+                    Vd = 0111;
+                }
+    } 
+  if(Vin > Vd);
+     {
+	 
+        Vd = 1100;
+        if(Vin < Vd)
+        {
+		
+         Vd = 1010;
+         if(Vin < Vd)
+            {
+			  
+              Vd = 1001;
+              if(Vin < Vd)
+               Vd = 1000;
+              else
+               Vd = 1001;
+            }
+         else
+            {
+			  
+                Vd = 1011;
+                if(Vin < Vd)
+                 Vd = 1010;
+                else
+                 Vd = 1011;
+            }
+     }
+         else
+           Vd = 1110;
+               if(Vin < Vd)
+                  {
+				    
+                    Vd = 1101;
+                    if(Vin < Vd)
+                     Vd = 1100;
+                    else
+                     Vd = 1101;
+              }
+               else
+                  {
+				    
+                      Vd = 1111;
+                      if(Vin < Vd)
+                       Vd = 1110;
+                      else
+                       Vd = 1111;
+               }
+   }
+if(Vd == 1000){
+	Vd = 1000;
+}
+   printf("SAR value is : %d",Vd);
+}
+
+
+int ADC_Function(int A){
+	int a0,b0,a1,b1,a2,b2,a3,D_out;
+	a0 = A % 2;
+	b0 = A/2;
+	a1 = b0 % 2;
+	b1 = b0/2;
+	a2 = b1 % 2;
+	a3 = b1/2;
+	D_out = 1000*a3 + 100*a2 + 10*a1 + a0;
+	return(D_out);	
+}
